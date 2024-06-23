@@ -2,7 +2,6 @@ from django.db import models
 
 
 
-# Товар для нашей витрины
 class News(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField()
