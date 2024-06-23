@@ -1,0 +1,47 @@
+from news.models import *
+
+us1 = User.objects.create_user(username = 'Луч')
+us2 = User.objects.create_user(username = 'Луна')
+
+au1 = Author.objects.create(user = us1)
+au2 = Author.objects.create(user = us2)
+
+category_sport = Category.objects.create(name = 'спорт')
+category_game = Category.objects.create(name = 'игры')
+category_pol = Category.objects.create(name = 'политика')
+category_cats = Category.objects.create(name = 'кошки')
+post1 = Post.objects.create(post_cat = 'AR', post_tittle='tittle', post_text='text', auth=au1)
+post2 = Post.objects.create(post_cat = 'AR', post_tittle='tittle', post_text='text', auth=au1)
+post3 = Post.objects.create(post_cat = 'NW', post_tittle='tittle', post_text='text', auth=au2)
+
+PostCategory.objects.create(category=category_cats, post=post1)
+PostCategory.objects.create(category=category_sport, post=post2)
+PostCategory.objects.create(category=category_game, post=post2)
+PostCategory.objects.create(category=category_pol, post=post3)
+
+comment1 = Comment.objects.create(post=post1, user=au2.user, comment_text='text')
+comment2 = Comment.objects.create(post=post2, user=au2.user, comment_text='text')
+comment3 = Comment.objects.create(post=post2, user=au2.user, comment_text='text')
+comment4 = Comment.objects.create(post=post3, user=au2.user, comment_text='text')
+
+post1.like()
+post2.like()
+post3.dislike()
+post2.like()
+
+comment1.like()
+comment2.like()
+comment3.like()
+comment3.like()
+comment3.like()
+comment3.dislike()
+comment4.like()
+
+post1.preview()
+
+au1.update_rating()
+au2.update_rating()
+
+Post.objects.all().order_by('rating').values('auth','post_date', 'post_tittle', 'rating')
+Post.objects.order_by('rating').last().preview()
+Comment.objects.all().order_by('rating').last().values('post', 'user', 'comment_date', 'comment_text')

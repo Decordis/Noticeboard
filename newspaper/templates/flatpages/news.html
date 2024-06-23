@@ -1,0 +1,39 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+
+{% block title %}
+News
+{% endblock title %}
+
+
+{% block content %}
+{% if news %}
+<div class="projects">
+    <h3>Записи</h3>
+    <h3>Количество записей: {{ news|length }}</h3>
+
+    {% for new in news %}
+    <div class="item">
+        <div class="image left">
+            <a href="#"><img src="css/images/project01.jpg" alt="" /></a>
+        </div>
+        <div class="text left">
+            <h1>{{new.name}}</h1>
+            <p>{{new.date}}</p>
+            <p>{{new.description|truncatechars:20}}</p>
+            <h4>Категория</h4>
+            <p>{{new.category.name}}</p>
+            <h4>Автор</h4>
+            <p>{{new.author}}</p>
+        </div>
+        <div class="cl">&nbsp;</div>
+    </div>
+    {% endfor%}
+</div>
+
+{%else%}
+    <h2>Новостей нет!</h2>
+{% endif %}
+{% endblock content %}
