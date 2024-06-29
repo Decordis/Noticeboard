@@ -1,6 +1,5 @@
 from django.views.generic import ListView, DetailView
-from datetime import datetime
-
+from .filters import NewsFilter
 from .models import News
 
 
@@ -15,6 +14,17 @@ class NewsList(ListView):
     # Это имя списка, в котором будут лежать все объекты.
     # Его надо указать, чтобы обратиться к списку объектов в html-шаблоне.
     context_object_name = 'news'
+    paginate_by = 1
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = NewsFilter(self.request.GET, queryset)
+        return self.filterset.qs
+
+    def get_context_data(self,  **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filterset'] = self.filterset
+        return context
 
 
 # Далее указываем путь к нашему классу, для начала создаем в simpleapp urls.py
