@@ -14,11 +14,6 @@ News
 <div class="projects">
     <h3>Записи</h3>
     <h3>Количество записей: {{ news|length }}</h3>
-
-    <form action="" method="get">
-        {{filterset.form.as_p}}
-        <input type="submit" value="найти" />
-    </form>
 <hr>
     {% for new in news %}
     <div class="item">
