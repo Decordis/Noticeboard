@@ -14,5 +14,5 @@ class NewsFilter(FilterSet):
         fields = {
             'name': ['icontains'],
             'author': ['exact'],
-            'date':['icontains']
+
         }
