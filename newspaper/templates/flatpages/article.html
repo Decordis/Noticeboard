@@ -11,13 +11,13 @@ News
             <a href="#"><img src="css/images/project01.jpg" alt="" /></a>
         </div>
         <div class="text left">
-            <h1>Статья: {{new.name|censor}}</h1>
+            <h1>Статья: {{post.title|censor}}</h1>
             <h1>Текст:</h1>
-            <p>{{new.description|censor}}</p>
-            <p>Дата публикации: {{new.date}}</p>
-            <h4>Категория: {{new.category.name}}</h4>
+            <p>{{post.description|censor}}</p>
+            <p>Дата публикации: {{post.date}}</p>
+            <h4>Категория: {{post.category.name}}</h4>
 
-            <h10>Автор: {{new.author}} </h10>
+            <h10>Автор: {{post.author}} </h10>
 
         </div>
         <div class="cl">&nbsp;</div>

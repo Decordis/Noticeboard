@@ -1,16 +1,15 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import News
+from .models import Post
 
-class NewsForm(forms.ModelForm):
+class PostForm(forms.ModelForm):
     class Meta:
-        model = News
+        model = Post
         fields = [
-            'name',
+            'title',
             'description',
             'author',
-            'date',
-            'category'
+            'category',
         ]
 
         def clean(self):
@@ -21,8 +20,8 @@ class NewsForm(forms.ModelForm):
                     'description' : 'Описание не может быть меньще 20 символов'
                 })
 
-            name = cleaned_data.get('name')
-            if name == description:
+            title = cleaned_data.get('title')
+            if title == description:
                 raise ValidationError('Описание не должно быть идентичным названию')
 
             author = cleaned_data.get('author')

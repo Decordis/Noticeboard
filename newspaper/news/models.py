@@ -31,7 +31,7 @@ class Post(models.Model):
 
     auth = models.ForeignKey(Author, on_delete=models.CASCADE)
     post_to_cat = models.ManyToManyField(Category, through='PostCategory')
-    post_cat = models.CharField(max_length=2, choices=CHANGE, default=articles)
+    post_type = models.CharField(max_length=2, choices=CHANGE, default=articles)
     post_date = models.DateTimeField(auto_now_add=True)
     post_tittle = models.CharField(max_length=200)
     post_text = models.TextField()

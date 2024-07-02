@@ -1,7 +1,7 @@
 import django_filters
 from django import forms
 from django_filters import FilterSet
-from .models import News
+from .models import Post
 
 class NewsFilter(FilterSet):
     date = django_filters.DateFilter(
@@ -10,9 +10,8 @@ class NewsFilter(FilterSet):
         label='Дата', lookup_expr='date__gte'
     )
     class Meta:
-        model = News
+        model = Post
         fields = {
-            'name': ['icontains'],
+            'title': ['icontains'],
             'author': ['exact'],
-
         }
