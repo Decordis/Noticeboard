@@ -5,8 +5,8 @@ from .models import News
 
 class NewsFilter(FilterSet):
     date = django_filters.DateFilter(
-        field_name='sort_date_of_publication',
-        widget=forms.DateInput(attrs={'type': 'date'}),
+        field_name='date',
+        widget=forms.DateTimeInput(attrs={'type': 'date'}),
         label='Дата', lookup_expr='date__gte'
     )
     class Meta:
@@ -14,4 +14,5 @@ class NewsFilter(FilterSet):
         fields = {
             'name': ['icontains'],
             'author': ['exact'],
+            'date':['icontains']
         }
