@@ -1,4 +1,5 @@
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .filters import NewsFilter
 from .models import Post
@@ -76,7 +77,7 @@ class PostUpdate(UpdateView):
 class PostDelete(DeleteView):
     model = Post
     template_name = 'flatpages/news_delete.html'
-    successPost = reverse_lazy('news_list')
+    successPost = reverse_lazy('post_list')
 
 
 
