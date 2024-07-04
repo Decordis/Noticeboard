@@ -62,8 +62,10 @@ class PostCreate(CreateView):
     template_name = 'flatpages/news_create.html'
 
     def form_valid(self, form):
-        news = form.save(commit=False)
-        news.post_type = 'article'
+        post = form.save(commit=False)
+        if self.request.path =='/news/article/create/':
+            post.post_type = 'AR'
+        post.save()
         return super().form_valid(form)
 
 class PostUpdate(UpdateView):

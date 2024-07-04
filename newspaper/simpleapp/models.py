@@ -16,7 +16,7 @@ class Post(models.Model):
     author = models.CharField('Имя автора', max_length=100)
     date = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(to='Category', on_delete=models.CASCADE, related_name='news')
-    post_type = models.CharField(max_length=2, choices=CHANGE, default=articles)
+    post_type = models.CharField(max_length=2, choices=CHANGE, default=news)
 
 
     def __str__(self):
