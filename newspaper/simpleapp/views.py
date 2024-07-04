@@ -77,7 +77,7 @@ class PostUpdate(UpdateView):
 class PostDelete(DeleteView):
     model = Post
     template_name = 'flatpages/news_delete.html'
-    successPost = reverse_lazy('post_list')
+    successPost = reverse_lazy('news_list')
 
 
 
