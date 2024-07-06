@@ -57,7 +57,8 @@ class PostSearch(ListView):
         context['filterset'] = self.filterset
         return context
 
-class PostCreate(CreateView):
+class PostCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = ('simpleapp.add_post')
     form_class = PostForm
     model = Post
     template_name = 'flatpages/news_create.html'
@@ -69,12 +70,14 @@ class PostCreate(CreateView):
         post.save()
         return super().form_valid(form)
 
-class PostUpdate(LoginRequiredMixin, UpdateView):
+class PostUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = ('simpleapp.change_post')
     form_class = PostForm
     model = Post
     template_name = 'flatpages/news_edit.html'
 
-class PostDelete(DeleteView):
+class PostDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    permission_required = ('simpleapp.delete_post')
     model = Post
     template_name = 'flatpages/news_delete.html'
     success_url = reverse_lazy('news_list')
