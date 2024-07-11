@@ -1,8 +1,10 @@
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .filters import NewsFilter
-from .models import Post
+from .models import Post, Category
 from .forms import PostForm
 
 
@@ -83,7 +85,30 @@ class PostDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('news_list')
 
 
+class CategoryList(PostList):
+    model = Post
+    template_name = 'flatpages/category_list.html'
+    context_object_name = 'category_list'
 
+    def get_queryset(self):
+        self.category = get_object_or_404(Category, id=self.kwargs['pk'])
+        queryset = Post.objects.filter(category=self.category).order_by('-date')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_not_subscriber'] = self.request.user not in self.category.subscribers.all()
+        context['category'] = self.category
+        return context
+
+@login_required
+def subscribe(request, pk):
+    user = request.user
+    category = Category.onjects.get(id=pk)
+    category.subscribers.add(user)
+
+    message = "Подписка на категорию прошла успешно!"
+    return render(request,'flatpages/subscribe.html', {'category': category, 'message': message})
 
 
 

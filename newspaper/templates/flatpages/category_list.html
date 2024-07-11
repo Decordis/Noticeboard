@@ -1,0 +1,62 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% load custom_tags %}
+
+{% block title %}
+News
+{% endblock title %}
+
+
+{% block content %}
+{% if category_list %}
+<div class="projects">
+    <h3>Записи</h3>
+    <h3>Количество записей: {{ post|length }}</h3>
+<hr>
+    {% for new in category_list %}
+    <div class="item">
+        <div class="image left">
+            <a href="#"><img src="css/images/project01.jpg" alt="" /></a>
+        </div>
+        <div class="text left">
+            <h1>{{new.title}}</h1>
+            <p>{{new.date}}</p>
+            <p>{{new.description|truncatechars:20}}</p>
+            <p>Категория: <a href="{% url 'category_list' category.id %}">{{new.category.name}}</a></p>
+            <p>Автор: {{new.author}}</p>
+            {% if is_not_subscriber %}
+            <button><a href="{% url 'subsribe' category.id"> Подписаться на категорию</a></button>
+            {% endif %}
+        </div>
+        <div class="cl">&nbsp;</div>
+    </div>
+    {% endfor%}
+</div>
+
+{%else%}
+    <h2>Новостей нет!</h2>
+{% endif %}
+
+   {% if page_obj.has_previous %}
+       <a href="?{% url_replace page=1 %}">1</a>
+       {% if page_obj.previous_page_number != 1 %}
+           ...
+           <a href="?{% url_replace page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
+       {% endif %}
+   {% endif %}
+
+   {# Информация о текущей странице #}
+   {{ page_obj.number }}
+
+   {# Информация о следующих страницах #}
+   {% if page_obj.has_next %}
+       <a href="?{% url_replace page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>
+       {% if paginator.num_pages != page_obj.next_page_number %}
+           ...
+           <a href="?{url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
+       {% endif %}
+   {% endif %}
+
+{% endblock content %}
