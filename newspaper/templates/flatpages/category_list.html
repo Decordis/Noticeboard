@@ -27,7 +27,7 @@ News
             <p>Категория: <a href="{% url 'category_list' category.id %}">{{new.category.name}}</a></p>
             <p>Автор: {{new.author}}</p>
             {% if is_not_subscriber %}
-            <button><a href="{% url 'subsribe' category.id"> Подписаться на категорию</a></button>
+            <button><a href="{% url 'subscribe' category.id %}"> Подписаться на категорию</a></button>
             {% endif %}
         </div>
         <div class="cl">&nbsp;</div>

@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.yandex',
+    'django_apscheduler',
 
 ]
 
@@ -167,3 +168,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
 SITE_URL = 'http://127.0.0.1:8000'
+
+# формат даты
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+
+# если задача не выполняется за 25 секунд, то она автоматически снимается
+APSCHEDULER_RUN_NOW_TIMEOUT = 25  # только в секундах!

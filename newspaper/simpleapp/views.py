@@ -105,7 +105,7 @@ class CategoryList(PostList):
 @login_required
 def subscribe(request, pk):
     user = request.user
-    category = Category.onjects.get(id=pk)
+    category = Category.objects.get(id=pk)
     category.subscribers.add(user)
 
     message = "Подписка на категорию прошла успешно!"

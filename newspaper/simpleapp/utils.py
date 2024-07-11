@@ -4,7 +4,7 @@ from django.dispatch import receiver
 from django.template.loader import render_to_string
 
 from .models import PostCategory
-from ..newspaper import settings
+from django.conf import settings
 
 
 def send_notifications(preview, pk, title, subscribers):
