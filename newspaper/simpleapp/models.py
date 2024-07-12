@@ -31,7 +31,7 @@ class Post(models.Model):
     description = models.TextField()
     author = models.CharField('Имя автора', max_length=100)
     date = models.DateTimeField(auto_now_add=True)
-    category = models.ManyToManyField(to='Category', on_delete=models.CASCADE, related_name='news')
+    category = models.ManyToManyField(to='Category', through='PostCategory')
     post_type = models.CharField(max_length=2, choices=CHANGE, default=news)
     rating = models.IntegerField(default=0)
 
