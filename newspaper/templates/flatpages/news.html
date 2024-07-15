@@ -24,7 +24,10 @@ News
             <h1>{{new.title}}</h1>
             <p>{{new.date}}</p>
             <p>{{new.description|truncatechars:20}}</p>
-            <p>Категория: {{new.category.name}} </p>
+            Категория:
+            {% for cat in new.category.all %}
+            {{cat.name}}
+            {% endfor %}
             <p>Автор: {{new.author}}</p>
         </div>
         <div class="cl">&nbsp;</div>

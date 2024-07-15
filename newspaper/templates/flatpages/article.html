@@ -15,7 +15,10 @@ News
             <h1>Текст:</h1>
             <p>{{post.description|censor}}</p>
             <p>Дата публикации: {{post.date}}</p>
-            <h4>Категория: {{post.category.name}}</h4>
+             Категория:
+            {% for cat in post.category.all %}
+            {{cat.name}}
+            {% endfor %}
 
             <h10>Автор: {{post.author}} </h10>
 
