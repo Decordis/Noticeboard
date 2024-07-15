@@ -24,7 +24,11 @@ News
             <h1>{{new.title}}</h1>
             <p>{{new.date}}</p>
             <p>{{new.description|truncatechars:20}}</p>
-            <p>Категория: <a href="{% url 'category_list' category.id %}">{{new.category.all}}</a></p>
+            <p>Категории:
+                {% for cat in new.category.all %}
+                <a href="{% url 'category_list' cat.id %}">{{cat.name}}</a>
+                {% endfor %}
+            </p>
             <p>Автор: {{new.author}}</p>
             {% if is_not_subscriber %}
             <button><a href="{% url 'subscribe' category.id %}"> Подписаться на категорию</a></button>
