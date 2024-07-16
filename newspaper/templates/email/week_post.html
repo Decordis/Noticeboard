@@ -7,8 +7,8 @@
 <body>
     <h2>Приветствую! Новые статьи за неделю!!</h2>
     <UL>
-        {% for post in posts %}
-        <li><a href="{{link}}{{post.get_absolute_url}}">{{post.title}}</a></li>
+        {% for posts in post %}
+        <li><a href="{{link}}{{posts.get_absolute_url}}">{{posts.title}}</a></li>
         {% endfor %}
     </UL>
 </body>
