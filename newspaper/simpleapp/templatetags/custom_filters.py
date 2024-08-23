@@ -4,6 +4,7 @@ register = template.Library()
 
 CENSOR = ['Вышло', 'новое', 'задачи', 'глупые', 'математики', 'Elden']
 
+
 @register.filter()
 def censor(value):
     for word in CENSOR:

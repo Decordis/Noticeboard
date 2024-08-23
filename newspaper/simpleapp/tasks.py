@@ -5,6 +5,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from .models import Post, Category
 
+
 @shared_task
 def send_email_task(pk):
     post = Post.objects.get(pk=pk)

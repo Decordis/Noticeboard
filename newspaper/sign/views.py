@@ -5,10 +5,12 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.contrib.auth.models import Group
 
+
 class BaseRegisterView(CreateView):
     model = User
     form_class = BaseRegisterForm
     success_url = '/'
+
 
 @login_required
 def upgrade_me(request):
@@ -17,4 +19,3 @@ def upgrade_me(request):
     if not request.user.groups.filter(name='author').exists():
         author_group.user_set.add(user)
     return redirect('/news')
-

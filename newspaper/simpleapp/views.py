@@ -26,7 +26,7 @@ class PostList(ListView):
         self.filterset = NewsFilter(self.request.GET, queryset=queryset)
         return self.filterset.qs
 
-    def get_context_data(self,  **kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['filterset'] = self.filterset
         return context
@@ -42,6 +42,7 @@ class PostDetail(DetailView):
     # Название объекта, в котором будет выбранный пользователем cтатья
     context_object_name = 'post'
 
+
 class PostSearch(ListView):
     model = Post
     template_name = 'flatpages/news_search.html'
@@ -54,10 +55,11 @@ class PostSearch(ListView):
         self.filterset = NewsFilter(self.request.GET, queryset=queryset)
         return self.filterset.qs
 
-    def get_context_data(self,  **kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['filterset'] = self.filterset
         return context
+
 
 class PostCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = ('simpleapp.add_post')
@@ -67,19 +69,21 @@ class PostCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
     def form_valid(self, form):
         post = form.save(commit=False)
-        if self.request.path =='/news/article/create/':
+        if self.request.path == '/news/article/create/':
             post.post_type = 'AR'
         post.save()
         return super().form_valid(form)
 
+
 class PostUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    permission_required = ('simpleapp.change_post')
+    permission_required = 'simpleapp.change_post'
     form_class = PostForm
     model = Post
     template_name = 'flatpages/news_edit.html'
 
+
 class PostDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
-    permission_required = ('simpleapp.delete_post')
+    permission_required = 'simpleapp.delete_post'
     model = Post
     template_name = 'flatpages/news_delete.html'
     success_url = reverse_lazy('news_list')
@@ -102,6 +106,7 @@ class CategoryList(PostList):
         context['category'] = self.category
         return context
 
+
 @login_required
 def subscribe(request, pk):
     user = request.user
@@ -109,8 +114,4 @@ def subscribe(request, pk):
     category.subscribers.add(user)
 
     message = "Подписка на категорию прошла успешно!"
-    return render(request,'flatpages/subscribe.html', {'category': category, 'message': message})
-
-
-
-
+    return render(request, 'flatpages/subscribe.html', {'category': category, 'message': message})
