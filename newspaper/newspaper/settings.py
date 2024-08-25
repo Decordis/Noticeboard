@@ -158,6 +158,18 @@ USE_TZ = True
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'handlers': {
+        'file1': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'general.log'
+        },
+        'file2': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': 'error.log'
+        }
+    },
     'style': '{',
     'formatters': {
         'simple': {
@@ -175,23 +187,21 @@ LOGGING = {
             'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
             'formatter': 'simple',
-            'filename': 'general.log'
         },
         'mail_admins': {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'logging.StreamHandler',
             'formatter': 'simple',
-            'filename': 'errors.log'
         }
     },
     'loggers': {
         'django': {
-            'handlers': ['console'],
+            'handlers': ['console', 'file1'],
             'propagate': True
         },
         'django.request': {
-            'handlers': ['mail_admins'],
+            'handlers': ['mail_admins', 'file2'],
             'level': 'ERROR',
             'propagate': False
         }
