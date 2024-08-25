@@ -187,6 +187,7 @@ LOGGING = {
         },
         'general': {
             'level': 'INFO',
+            'filters': ['require_debug_false'],
             'class': 'logging.FileHandler',
             'filename': 'general.log'
         },
