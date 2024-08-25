@@ -158,28 +158,19 @@ USE_TZ = True
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'handlers': {
-        'file1': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': 'general.log'
-        },
-        'file2': {
-            'level': 'ERROR',
-            'class': 'logging.FileHandler',
-            'filename': 'error.log'
-        }
-    },
     'style': '{',
     'formatters': {
         'simple': {
-            'format': '%(levelname)s %(message)s'
+            'format': '%(levelname)s %(asctime)s %(module)s %(pathname)s %(process)d %(thread)d %(message)s'
         },
     },
     'filters': {
         'require_debug_true': {
             '()': 'django.utils.log.RequireDebugTrue',
         },
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
     },
     'handlers': {
         'console': {
@@ -193,7 +184,22 @@ LOGGING = {
             'filters': ['require_debug_false'],
             'class': 'logging.StreamHandler',
             'formatter': 'simple',
-        }
+        },
+        'general': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'general.log'
+        },
+        'errors': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': 'error.log'
+        },
+        'security': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'error.log'
+        },
     },
     'loggers': {
         'django': {
