@@ -161,6 +161,12 @@ LOGGING = {
     'style': '{',
     'formatters': {
         'simple': {
+            'format': ' %(asctime)s %(levelname)s %(message)s'
+        },
+        'general': {
+            'format': '%(asctime)s %(levelname)s %(module)s %(message)s'
+        },
+        'complex': {
             'format': '%(levelname)s %(asctime)s %(module)s %(pathname)s %(process)d %(thread)d %(message)s'
         },
     },
@@ -174,10 +180,16 @@ LOGGING = {
     },
     'handlers': {
         'console': {
-            'level': 'INFO',
+            'level': 'DEBUG',
             'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
             'formatter': 'simple',
+        },
+        'console_warning': {
+            'level': 'WARNING',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'complex'
         },
         'mail_admins': {
             'level': 'ERROR',
@@ -185,16 +197,19 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'simple',
         },
+
         'general': {
             'level': 'INFO',
             'filters': ['require_debug_false'],
             'class': 'logging.FileHandler',
-            'filename': 'general.log'
+            'filename': 'general.log',
+            'formatter': 'general'
         },
         'errors': {
             'level': 'ERROR',
             'class': 'logging.FileHandler',
-            'filename': 'error.log'
+            'filename': 'error.log',
+            'formatter': 'complex'
         },
         'security': {
             'level': 'INFO',
