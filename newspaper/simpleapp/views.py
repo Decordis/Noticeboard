@@ -1,8 +1,10 @@
+from django.http import HttpResponse
 from django.utils.translation import gettext as _
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .filters import NewsFilter
 from .models import Post, Category
@@ -106,6 +108,16 @@ class CategoryList(PostList):
         context['is_not_subscriber'] = self.request.user not in self.category.subscribers.all()
         context['category'] = self.category
         return context
+
+
+class Index(View):
+    def get(self, request):
+        models = Post
+
+        context = {
+            'models': models
+        }
+        return HttpResponse(render(request, 'flatpages/index.html', context))
 
 
 @login_required

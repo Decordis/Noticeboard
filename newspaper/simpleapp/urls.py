@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import PostList, PostDetail, PostSearch, PostCreate, PostUpdate, PostDelete, CategoryList, subscribe
+from .views import PostList, PostDetail, PostSearch, PostCreate, PostUpdate, PostDelete, CategoryList, subscribe, Index
 
 urlpatterns = [
     # path — означает путь.
@@ -21,6 +21,7 @@ urlpatterns = [
     path('article/<int:pk>/update/', PostUpdate.as_view(), name='news_edit'),
     path('article/<int:pk>/delete', PostDelete.as_view(), name='news_delete'),
     path('categories/<int:pk>', CategoryList.as_view(), name='category_list'),
-    path('categories/<int:pk>/subscribe', subscribe, name='subscribe')
+    path('categories/<int:pk>/subscribe', subscribe, name='subscribe'),
+    path('translate/', Index.as_view(), name='index'),
 
 ]
