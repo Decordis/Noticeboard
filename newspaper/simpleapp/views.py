@@ -112,10 +112,10 @@ class CategoryList(PostList):
 
 class Index(View):
     def get(self, request):
-        models = Post
+        posts = Post.objects.all()
 
         context = {
-            'models': models
+            'posts': posts
         }
         return HttpResponse(render(request, 'flatpages/index.html', context))
 

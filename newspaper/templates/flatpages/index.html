@@ -1,6 +1,7 @@
-
+{% extends 'flatpages/default.html' %}
 {% load i18n %}
 
+{% block content %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -26,10 +27,11 @@
         <input type="submit" value="set">
     </form>
 
-    {% for new in models %}
+    {% for new in posts %}
     <div class="model-class">
-        {{ new.name }}
+        {{ new.title }}
     </div>
     {% endfor %}
 </body>
 </html>
+{% endblock content %}
